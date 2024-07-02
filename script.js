@@ -1,33 +1,39 @@
 //your code here
-const imagesData = [
+let imagesData = [
 	{
-		id: 'img1',
+		id: 1,
+		class: 'img1',
 		selected: false,
 	},
 	{
-		id: 'img2',
+		id: 2,
+		class: 'img2',
 		selected: false,
 	},
 	{
-		id: 'img3',
+		id: 3,
+		class: 'img3',
 		selected: false,
 	},
 	{
-		id: 'img4',
+		id: 4,
+		class: 'img4',
 		selected: false,
 	},
 	{
-		id: 'img5',
+		id: 5,
+		class: 'img5',
 		selected: false,
 	},
 ]
 
 const randomImageId = Math.floor(Math.random() * 5 + 1)
 imagesData.push({
-	id: 'img' + randomImageId,
+	id: 6,
+	class: 'img' + randomImageId,
 	selected: false,
 })
-
+ 
 // Arrange images data randomly
 let times = 10
 while (times--) {
@@ -45,7 +51,7 @@ const imgContainer = document.getElementById('img-container')
 function renderImages() {
 	imgContainer.innerHTML = imagesData.map(
 		(image) =>
-			`<img onclick=handleImageClick('${image.id}') class='${image.id} ${
+			`<img onclick=handleImageClick('${image.id}') class='${image.class} ${
 				image.selected ? 'selected' : ''}'/>`
 	)
 }
@@ -53,5 +59,15 @@ function renderImages() {
 renderImages()
 
 function handleImageClick(id) {
-	console.log('clicked',id)
+	imagesData=imagesData.map((image)=>{
+		return image.id==id?
+			{
+				...image,
+				selected:!image.selected
+			}
+			:
+			image
+	})
+	renderImages()
 }
+ 
