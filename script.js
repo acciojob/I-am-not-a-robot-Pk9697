@@ -58,7 +58,7 @@ function renderImages() {
 		(image) =>
 			`<img onclick=handleImageClick('${image.id}') class='${image.class} ${
 				image.selected ? 'selected' : ''}'/>`
-	)
+	).join(' ')
 }
  
 renderImages()
@@ -96,10 +96,11 @@ function isValidButtons() {
 		verifyButton.style.display='none'
 	}
 }
-
+  
 resetButton.addEventListener('click',()=>{
-	imagesData=imagesData.map((image)=>{...image,selected:false})
-	
+	imagesData=imagesData.map((image)=>({...image,selected:false}))
+	renderImages()
+	isValidButtons()
 })
 
  
