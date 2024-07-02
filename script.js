@@ -1,4 +1,11 @@
 //your code here
+const imgContainer = document.getElementById('img-container')
+const resetButton = document.getElementById('reset')
+const verifyButton = document.getElementById('verify')
+
+resetButton.style.display='none'
+verifyButton.style.display='none'
+
 let imagesData = [
 	{
 		id: 1,
@@ -46,8 +53,6 @@ while (times--) {
 
 console.log({ imagesData })
 
-const imgContainer = document.getElementById('img-container')
-
 function renderImages() {
 	imgContainer.innerHTML = imagesData.map(
 		(image) =>
@@ -57,6 +62,10 @@ function renderImages() {
 }
  
 renderImages()
+
+function getCountSelected() {
+	return imagesData.reduce((acc,curr)=>curr.selected?acc+1:acc,0)
+}
 
 function handleImageClick(id) {
 	imagesData=imagesData.map((image)=>{
@@ -69,5 +78,28 @@ function handleImageClick(id) {
 			image
 	})
 	renderImages()
+
+	isValidButtons()
 }
+
+function isValidButtons() {
+	const countSelected=getCountSelected()
+	if(countSelected>=1){
+		resetButton.style.display='block'
+	}else{
+		resetButton.style.display='none'
+	}
+
+	if(countSelected==2){
+		verifyButton.style.display='block'
+	}else{
+		verifyButton.style.display='none'
+	}
+}
+
+resetButton.addEventListener('click',()=>{
+	imagesData=imagesData.map((image)=>{...image,selected:false})
+	
+})
+
  
