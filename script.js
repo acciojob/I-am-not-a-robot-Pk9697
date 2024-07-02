@@ -2,9 +2,11 @@
 const imgContainer = document.getElementById('img-container')
 const resetButton = document.getElementById('reset')
 const verifyButton = document.getElementById('verify')
+const para = document.getElementById('para')
 
 resetButton.style.display='none'
 verifyButton.style.display='none'
+para.style.display='none'
 
 let imagesData = [
 	{
@@ -100,7 +102,23 @@ function isValidButtons() {
 resetButton.addEventListener('click',()=>{
 	imagesData=imagesData.map((image)=>({...image,selected:false}))
 	renderImages()
-	isValidButtons()
+	// isValidButtons()
+	resetButton.style.display='none'
+	verifyButton.style.display='none'
+	para.style.display='none'
+})
+
+verifyButton.addEventListener('click',()=>{
+	const selectedImages=imagesData.filter((image)=>image.selected)
+	const sameClass=selectedImages[0].class
+	const isValid=selectedImages.every((image)=>image.class===sameClass)
+	verifyButton.style.display='none'
+	if(isValid){
+		para.textContent='You are a human. Congratulations!'
+	}else{
+		para.textContent="We can't verify you as a human. You selected the non-identical tiles."
+	}
+	para.style.display='block'
 })
 
  
